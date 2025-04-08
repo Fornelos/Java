@@ -1,0 +1,55 @@
+public class CalculadoraIRPF {
+    private static final FaixaImposto[] FAIXAS = {
+        new FaixaImposto(0, 24511.92, 0.0, 0.0),
+        new FaixaImposto(24511.93, 33919.80, 0.075, 1838.39),
+        new FaixaImposto(33919.81, 45012.60, 0.15, 4382.38),
+        new FaixaImposto(45012.61, 55976.16, 0.225, 7758.32),
+        new FaixaImposto(55976.17, Double.MAX_VALUE, 0.275, 10557.13)
+    };
+
+    public double calcularImposto(double baseCalculo) {
+        if (baseCalculo < 0) {
+            throw new IllegalArgumentException("Base de cálculo não pode ser negativa");
+        }
+        
+        for (FaixaImposto faixa : FAIXAS) {
+            if (faixa.pertenceAFaixa(baseCalculo)) {
+                return faixa.calcularImposto(baseCalculo);
+            }
+        }
+        
+        return 0.0;
+    }
+
+    private static class FaixaImposto {
+        private final double minimo;
+        private final double maximo;
+        private final double aliquota;
+        private final double deducao;
+
+        public FaixaImposto(double minimo, double maximo, double aliquota, double deducao) {
+            this.minimo = minimo;
+            this.maximo = maximo;
+            this.aliquota = aliquota;
+            this.deducao = deducao;
+        }
+
+        public boolean pertenceAFaixa(double valor) {
+            return valor >= minimo && valor <= maximo;
+        }
+
+        public double calcularImposto(double base) {
+            return base * aliquota - deducao;
+        }
+    }
+}
+
+/*Princípios OO aplicados:
+
+Encapsulamento: Os atributos da classe FaixaImposto são privados e só acessíveis através de métodos.
+
+Ocultamento de informações: A implementação das faixas de imposto está encapsulada na classe CalculadoraIRPF.
+
+Integridade dos objetos: Validação da base de cálculo para evitar valores negativos.
+
+Abstração: A classe FaixaImposto abstrai o conceito de uma faixa de cálculo do IRPF.*/

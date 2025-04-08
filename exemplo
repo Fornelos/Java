@@ -1,0 +1,53 @@
+//Soluções para a Avaliação de Orientação a Objetos:
+
+//Questões Discursivas
+/*1. Usos da palavra-chave this em construtores
+A palavra-chave this em Java (e linguagens similares) tem dois principais usos em construtores:
+
+Diferenciar atributos de parâmetros: Quando os parâmetros do construtor têm o mesmo nome dos atributos da classe, this é usado para referenciar os atributos da instância atual.*/
+
+public class Pessoa {
+    private String nome;
+    private int idade;
+    
+    public Pessoa(String nome, int idade) {
+        this.nome = nome; // this.nome refere-se ao atributo, nome refere-se ao parâmetro
+        this.idade = idade;
+    }
+}
+
+/*2 - Chamar outros construtores: Dentro de um construtor, 
+this() pode ser usado para chamar outro construtor da mesma classe (sobrecarga de construtores).*/
+
+public class Pessoa {
+    private String nome;
+    private int idade;
+    
+    public Pessoa() {
+        this("Desconhecido", 0); // Chama o construtor abaixo
+    }
+    
+    public Pessoa(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+}
+
+
+/*2. Sobreposição (Overriding)
+Sobreposição (ou overriding) ocorre quando uma subclasse fornece uma implementação específica de um método que já está definido em sua superclasse. 
+Para que ocorra a sobreposição:
+
+O método na subclasse deve ter a mesma assinatura (nome e parâmetros) que o método da superclasse.
+
+O método na subclasse deve ter o mesmo tipo de retorno ou um subtipo covariante.
+
+O método na subclasse não pode ter um modificador de acesso mais restritivo.
+
+O método na subclasse pode lançar apenas exceções unchecked ou subtipos das exceções lançadas pelo método da superclasse.
+
+Diferença entre sobrecarga e sobreposição:
+
+Sobrecarga (overloading) ocorre na mesma classe com métodos de mesmo nome mas parâmetros diferentes.
+
+Sobreposição (overriding) ocorre entre classes relacionadas por herança com métodos de mesma assinatura.*/
